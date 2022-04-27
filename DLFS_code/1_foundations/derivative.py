@@ -10,7 +10,4 @@ def deriv(func: Callable[[ndarray], ndarray], input_: ndarray, delta: float = 0.
 
 if __name__ == "__main__":
     input_range = np.arange(-2, 2, 0.01)
-    plt.plot(input_range, deriv(square, input_range))
-    plt.plot(input_range, 2*input_range)
-    plt.legend(["Derivative of square function", "Linear function with coef 2"])
-    plt.show()
+    assert np.allclose(deriv(square, input_range), 2 * input_range) 
