@@ -1,6 +1,5 @@
 import numpy as np
 from numpy import ndarray
-import matplotlib.pyplot as plt
 from typing import Callable
 
 from square import square
