@@ -1,11 +1,13 @@
 import numpy as np
 from numpy import ndarray
+import matplotlib.pyplot as plt
+
 from nested_func import Chain
 from derivative import deriv
-from square import square
-from sigmoid import sigmoid
-from leaky_relu import leaky_relu
-import matplotlib.pyplot as plt
+from functions.square import square
+from functions.sigmoid import sigmoid
+from functions.leaky_relu import leaky_relu
+
 
 def chain_deriv_2(chain: Chain, input_range: ndarray) -> ndarray:
     assert len(chain) == 2
@@ -18,6 +20,7 @@ def chain_deriv_2(chain: Chain, input_range: ndarray) -> ndarray:
     df2du = deriv(f2, f1(input_range))
 
     return df1dx * df2du
+
 
 def chain_deriv_3(chain: Chain, input_range: ndarray) -> ndarray:
     assert len(chain) == 3
@@ -35,6 +38,7 @@ def chain_deriv_3(chain: Chain, input_range: ndarray) -> ndarray:
 
     return df1dx * df2du * df3du
 
+
 if __name__ == "__main__":
     input_range = np.arange(-2, 2, 0.01)
 
@@ -47,6 +51,10 @@ if __name__ == "__main__":
     chain = [leaky_relu, square, sigmoid]
     plt.plot(input_range, sigmoid(square(leaky_relu(input_range))))
     plt.plot(input_range, chain_deriv_3(chain, input_range))
-    plt.legend(["Function for sigmoid(square(leaky_relu(x)))", "Derivative for sigmoid(square(leaky_relu(x)))"])
+    plt.legend(
+        [
+            "Function for sigmoid(square(leaky_relu(x)))",
+            "Derivative for sigmoid(square(leaky_relu(x)))",
+        ]
+    )
     plt.show()
-    
