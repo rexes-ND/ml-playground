@@ -8,6 +8,8 @@ from functions import (
     leaky_relu,
     deriv,
     chain,
+    multiple_inputs_add,
+    multiple_inputs_add_backward,
 )
 
 
@@ -40,6 +42,21 @@ class TestFunctions(unittest.TestCase):
                 np.power(self.input_range, 4),
             )
         )
+
+    def test_multiple_inputs(self):
+        self.assertTrue(
+            np.allclose(
+                multiple_inputs_add(self.input_range, self.input_range, sigmoid),
+                sigmoid(2 * self.input_range),
+            )
+        )
+        deriv_x, deriv_y = multiple_inputs_add_backward(
+            self.input_range,
+            self.input_range,
+            square,
+        )
+        self.assertTrue(np.allclose(deriv_x, 4 * self.input_range))
+        self.assertTrue(np.allclose(deriv_y, 4 * self.input_range))
 
 
 if __name__ == "__main__":

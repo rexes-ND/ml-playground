@@ -1,1 +1,1 @@
-Code from the book `Deep Learning From Scratch`
+My codes based on the book `Deep Learning From Scratch`
