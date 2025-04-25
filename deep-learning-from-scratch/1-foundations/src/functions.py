@@ -19,11 +19,7 @@ def leaky_relu(x: ndarray, alpha: float = 0.2) -> ndarray:
     return np.maximum(alpha * x, x)
 
 
-def deriv(
-    f: Array_Function,
-    input_: ndarray,
-    delta: float = 0.001,
-) -> ndarray:
+def deriv(f: Array_Function, input_: ndarray, delta: float = 0.001) -> ndarray:
     return (f(input_ + delta) - f(input_ - delta)) / (2 * delta)
 
 
@@ -38,6 +34,7 @@ def chain_deriv(chain: Chain, input_range: ndarray) -> ndarray:
     """
     Uses the chain rule to compute the derivative of two nested functions:
     (f2(f1(x)))' = f2'(f1(x)) * f1'(x)
+    (fn(...(f2(f1(x)))))' = fn'(...) * ... * f2'(f1(x)) * f1'(x)
     """
     res = 1
     cur_input_range = input_range.copy()
@@ -73,13 +70,10 @@ def multiple_inputs_add_backward(
     a = alpha(x, y) = x + y
     s = sigma(a)
 
-    d(sigma(alpha(x, y)))/dx = d(sigma(a))/d(a) * d(alpha(x, y))/dx
-    d(alpha(x, y))/dx = 1
+    d(sigma(alpha(x, y)))/dx = sigma'(a) * d(alpha(x, y))/dx
+    d(alpha(x, y))/dx = d(x + y)/dx = 1
     """
     a = x + y
-
     dsda = deriv(sigma, a)
-
     dadx, dady = 1, 1
-
     return dsda * dadx, dsda * dady

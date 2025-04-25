@@ -2,8 +2,8 @@ import unittest
 
 import numpy as np
 
-from functions import sigmoid
-from matrix import (
+from src.functions import sigmoid
+from src.matrix import (
     matmul_backward_first,
     matrix_forward_extra,
     matrix_function_backward_1,

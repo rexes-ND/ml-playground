@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from functions import (
+from src.functions import (
     square,
     sigmoid,
     leaky_relu,
@@ -24,7 +24,8 @@ class TestFunctions(unittest.TestCase):
         pass
 
     def test_leaky_relu(self):
-        pass
+        self.assertTrue(leaky_relu(self.input_range)[0] == -0.4)
+        self.assertTrue(leaky_relu(self.input_range)[-1] == self.input_range[-1])
 
     def test_deriv(self):
         # Testing if the derivative of square of x is close to 2*x.
